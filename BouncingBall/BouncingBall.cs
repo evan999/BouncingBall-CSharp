@@ -8,31 +8,46 @@ namespace BouncingBall
 {
     public class BouncingBall
     {
-        public static int bouncingBall(double h, double bounce, double window)
+        /*
+        private bool isValidExperiment(double height, double bounceRate)
         {
-            int seen = 0; // number of times the boy's mother sees the ball
-            double rebound;
+            return height > 0 && bounceRate > 0 && bounceRate < 1;
+        }
+        */
 
-            if (h <= 0 || bounce <= 0 || bounce >= 1 || window > h )
+        public static int bouncingBall(double height, double bounceRate, double window)
+        {
+            int ballSeen = 1; // number of times the boy's mother sees the ball
+            // If the ball bounces, the ball will be seen at least once
+            double reboundHeight;
+
+            if (height <= 0 || bounceRate <= 0 || bounceRate >= 1 || window > height)
             {
                 // Invalid inputs
                 return -1;
             }
 
-            if (h > window)
+            // Keep track of rebounding height
+            reboundHeight = height;
+
+            /*
+            if (isValidExperiment(height, bounceRate))
             {
-                seen++;
+                while (reboundHeight > window)
+                {
+                    reboundHeight *= bounceRate;
+                    ballSeen++;
+                }
+            }
+            */
+
+            while (reboundHeight > window)
+            {
+                reboundHeight *= bounceRate;
+                ballSeen++;
             }
 
-            rebound = h;
-
-            while (rebound > window)
-            {
-                rebound *= bounce;
-                seen++;            
-            }
-
-            return seen;
+            return ballSeen;
         }
     }
 }
